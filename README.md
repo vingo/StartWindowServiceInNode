@@ -5,4 +5,6 @@ you can config service name from app.js
 
 usage:
 
-node app.js
+step1  node app.js
+step2  open browse and visit localhost:1000
+
