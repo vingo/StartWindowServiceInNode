@@ -1,9 +1,10 @@
+var server = require('http');
 var child = require('child_process');
 var message = {
     status: true,
     msg: ''
 }
-var serverName = 'SEVPNCLIENT'; // declare server name of windows.you can modify it
+var serverName = 'SEVPNCLIENT'; // declare server name of windows and you can modify it
 
 function start(callback) {
     child.execFile('start.bat', [serverName], function(error, stdout, stderr) { //start server SEVPNCLIENT
@@ -28,6 +29,22 @@ function start(callback) {
     });
 }
 
-start(function(data) {
-    console.log(data.status, data.msg);
-});
+server.createServer(function(req, res) {
+    var url = req.url;
+    res.writeHead(200, {
+        'Content-Type': 'text/plain'
+    });
+    if (url == '/') {
+        start(function(data) {
+            console.log(data);
+            var result = "start status: " + data.status + ", msg: " + data.msg
+            res.end(result);
+        });
+    } else {
+        res.writeHead(200, {
+            'Content-Type': 'text/html'
+        });
+        res.end('please visit: <a href=' + req.headers.host + ' >Start</a> to start server');
+    }
+
+}).listen(1000);
