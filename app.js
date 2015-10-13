@@ -3,7 +3,7 @@ var message = {
     status: true,
     msg: ''
 }
-var serverName = 'SEVPNCLIENT'; // declare server name of windows.
+var serverName = 'SEVPNCLIENT'; // declare server name of windows.you can modify it
 
 function start(callback) {
     child.execFile('start.bat', [serverName], function(error, stdout, stderr) { //start server SEVPNCLIENT
